@@ -1,11 +1,11 @@
-"""TP noté de Sacha FOLCKE"""
+"""TP8 (noté) de Sacha FOLCKE portant sur les tris et leurs performances"""
 ### Imports
 import random
 import time
 import sys
 ###
 def random_array_gen(num):
-    """Generate an array containing n random integers between 0 and 100"""
+    """Generate an array containing n random integers between 0 and num"""
     array = []
     for _ in range(num):
         array.append(random.randint(0, num))
@@ -49,11 +49,11 @@ def quick_sort(array, first, last):
     return array
 
 ### Tri fusion
-def fusion_sort(array):
+def merge_sort(array):
     """Splits the arrays in two for the sort"""
     if len(array) < 2:
         return array
-    return fusion(fusion_sort(array[:(len(array)//2)]), fusion_sort(array[(len(array)//2):]))
+    return fusion(merge_sort(array[:(len(array) // 2)]), merge_sort(array[(len(array) // 2):]))
 
 def fusion(array_a, array_b):
     """Merge sorted arrays"""
@@ -66,7 +66,7 @@ def fusion(array_a, array_b):
     return [array_b[0]] + fusion(array_a, array_b[1:])
 
 # Time Benchmark
-def benchmark(sizes_array, num):
+def benchmark(sizes_array, num=1):
     """Who is the best sorting algorithm ??
     Generates a random array of 'size' integers long, then let each algorithm sort
     the exact same array. Outputs the results in multiple files. Repeat 'num' times."""
@@ -100,7 +100,7 @@ def benchmark(sizes_array, num):
             #####
             array = init_array.copy()
             time1 = time.time()
-            fusion_sort(array)
+            merge_sort(array)
             time2 = time.time()
             total_time = str(time2 - time1)
             fusions.append(time2 - time1)
